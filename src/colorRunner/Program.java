@@ -1,5 +1,5 @@
 package colorRunner;
 
-public class program {
+public class Program {
 
 }
