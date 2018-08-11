@@ -15,8 +15,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static final int WIDTH = 160;
-	public static final int HEIGHT = WIDTH/12*9;
+	public static final int WIDTH = 1024;
+	public static final int HEIGHT = WIDTH/16*9;
 	public static final int SCALE = 3;
 	public static final String NAME = "Game";
 	
@@ -115,9 +115,5 @@ public class Game extends Canvas implements Runnable{
 		
 		g.dispose();
 		bs.show();
-	}
-	
-	public static void main(String[]args){
-		new Game().start();
 	}
 }

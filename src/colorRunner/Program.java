@@ -7,5 +7,6 @@ public class Program extends Thread{
 	public Program() {}
 
 	public static void main(String[]args) {
+		new Game().run();
 	}
 }
