@@ -37,17 +37,12 @@ public abstract class Game extends Canvas implements Runnable{
 		
 		frame.add(this, BorderLayout.CENTER);
 		frame.pack();
-		
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 	
-<<<<<<< HEAD
 	public synchronized void start(){
-=======
-	public void start(){
->>>>>>> branch 'master' of https://github.com/JustinCSnider/ludumdare42.git
 		isRunning = true;
 		new Thread(this).start();
 	}
