@@ -1,12 +1,17 @@
 package colorRunner;
 
-import java.awt.Graphics;
-import javax.swing.JFrame;
+import java.awt.event.*;
+import ui.*;
 
 public class Program extends Thread{	
 	public Program() {}
 
 	public static void main(String[]args) {
-		new Game().run();
+		Menu mainMenu = new Menu("Main menu");
+		mainMenu.getStartButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Game().start();
+			}
+		});
 	}
 }

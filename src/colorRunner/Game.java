@@ -46,7 +46,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setVisible(true);
 	}
 	
-	private synchronized void start(){
+	public void start(){
 		isRunning = true;
 		new Thread(this).start();
 	}
