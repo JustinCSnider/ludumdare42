@@ -11,7 +11,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-public class Game extends Canvas implements Runnable{
+public abstract class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -24,9 +24,6 @@ public class Game extends Canvas implements Runnable{
 	
 	public boolean isRunning = false;
 	public int tickCount = 0;
-	
-	private BufferedImage image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	
 	public Game(){
 		setMinimumSize(new Dimension(WIDTH * SCALE , HEIGHT * SCALE));
@@ -46,7 +43,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setVisible(true);
 	}
 	
-	private synchronized void start(){
+	public synchronized void start(){
 		isRunning = true;
 		new Thread(this).start();
 	}
@@ -56,6 +53,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run() {
+		init();
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000D/60D;
 		
@@ -89,18 +87,19 @@ public class Game extends Canvas implements Runnable{
 			if (System.currentTimeMillis() - lastTimer > 1000){
 				lastTimer += 1000;
 				System.out.println(ticks + "ticks, " + frames + "frames");
+				getBufferStrategy().getDrawGraphics().clearRect(0, 0, getWidth(), getHeight());
+				this.postTick(getBufferStrategy().getDrawGraphics());
 				frames = 0;
 				ticks = 0;
 			}
 		}
 	}
 	
+	public abstract void postTick(Graphics g);
+	public abstract void init();
+	
 	public void tick(){
 		tickCount++;
-		
-		for(int i=0; i<pixels.length;i++){
-			pixels[i] = i / tickCount;
-		}
 	}
 	
 	public void render(){
@@ -111,8 +110,6 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		
 		g.dispose();
 		bs.show();
 	}
